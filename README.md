@@ -13,6 +13,10 @@ Vue js 3, Element Ui, Pinia
 - Users can run pre-defined queries fetched from Github API
 - Added pagination to render large amount of data
 - Saving the history of commands that user ran.
+- User can cancel the query.
+
+# Optimisation
+ - Added Gzip Compression
 ---
 ## Recommended IDE Setup
 
