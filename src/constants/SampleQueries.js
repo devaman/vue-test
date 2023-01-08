@@ -1,9 +1,9 @@
 const names = [
+    'territories',
     'products',
     'regions',
     'shippers',
     'suppliers',
-    'territories',
     'categories',
     'customers',
     'employee_territories',

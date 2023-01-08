@@ -22,8 +22,8 @@
         <el-tabs v-model="activeTab" v-loading="loading" element-loading-text="fetching data">
             <el-tab-pane label="Results" name="results" >
                 <div v-if="data" >
-                    <el-table :data="pagedTableData"  table-layout="auto" stripe border @sort-change="sortMethod">
-                        <el-table-column sortable="custom"  in v-for="column in dataColumns" :key="column" :prop="column" :label="column"></el-table-column>
+                    <el-table  :data="pagedTableData"  table-layout="auto" stripe border @sort-change="sortMethod">
+                        <el-table-column resizable sortable="custom"  in v-for="column in dataColumns" :key="column" :prop="column" :label="column"></el-table-column>
                     </el-table>
                     <el-pagination layout="prev, pager, next" :total="this.data.length" @current-change="setPage"></el-pagination>
                 </div>
@@ -56,7 +56,7 @@ export default {
         return {
             activeTab:'results',
             form: {
-                query:'SELECT * FROM products'
+                query:'SELECT * FROM territories;'
             },
             currentPage:1,
             pageSize:10,
@@ -153,4 +153,5 @@ export default {
 .no-result{
     min-width: 100px;
 }
+
 </style>
