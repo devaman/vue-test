@@ -1,5 +1,5 @@
 <template>
-   <div  >
+   <div style="width:100%;">
         <div class="input" >
             <el-form :model="form" :rules="rules" ref="ruleFormRef">
                 <div>
@@ -20,10 +20,10 @@
            
         </div>
         <el-tabs v-model="activeTab" v-loading="loading" element-loading-text="fetching data">
-            <el-tab-pane label="Results" name="results" >
+            <el-tab-pane label="Results" name="results" style="width">
                 <div v-if="data" >
-                    <el-table  :data="pagedTableData"  table-layout="auto" stripe border @sort-change="sortMethod">
-                        <el-table-column resizable sortable="custom"  in v-for="column in dataColumns" :key="column" :prop="column" :label="column"></el-table-column>
+                    <el-table style="width:100%"  :data="pagedTableData" stripe border @sort-change="sortMethod">
+                        <el-table-column resizable min-width="200" sortable="custom"  in v-for="column in dataColumns" :key="column" :prop="column" :label="column"></el-table-column>
                     </el-table>
                     <el-pagination layout="prev, pager, next" :total="this.data.length" @current-change="setPage"></el-pagination>
                 </div>

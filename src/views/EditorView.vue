@@ -9,7 +9,6 @@
     </el-tabs>
 </template>
 <script>
-import { ref } from 'vue'
 import Runner from '../components/Runner.vue';
 import LeftBar from '../components/LeftBar.vue';
 export default {
@@ -67,7 +66,8 @@ export default {
 </script>
 <style>
 .demo-tabs {
-   flex: 1;
+    flex: 1;
+    width: 78%;
    padding: 10px;
 }
 </style>
