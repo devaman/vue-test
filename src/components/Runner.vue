@@ -22,8 +22,8 @@
         <el-tabs v-model="activeTab" v-loading="loading" element-loading-text="fetching data">
             <el-tab-pane label="Results" name="results" >
                 <div v-if="data" >
-                    <el-table :data="pagedTableData"  table-layout="auto" stripe border>
-                        <el-table-column in v-for="column in dataColumns" :key="column" :prop="column" :label="column"></el-table-column>
+                    <el-table :data="pagedTableData"  table-layout="auto" stripe border @sort-change="sortMethod">
+                        <el-table-column sortable="custom"  in v-for="column in dataColumns" :key="column" :prop="column" :label="column"></el-table-column>
                     </el-table>
                     <el-pagination layout="prev, pager, next" :total="this.data.length" @current-change="setPage"></el-pagination>
                 </div>
@@ -42,6 +42,7 @@
 <script>
 import { useHistoryStore } from '../stores/history'
 import csvToJson from '../utils/csvToJson'
+import {cloneDeep} from 'lodash'
 export default {
     setup(){
     const historyStore = useHistoryStore()
@@ -66,6 +67,7 @@ export default {
                 ],
             },
             data:null,
+            filteredData: null,
             loading: false,
             resultMessage:'Run the Query to see Results'
         };
@@ -75,10 +77,26 @@ export default {
             return Object.keys(this.data[0])
         },
         pagedTableData() {
-            return this.data.slice(this.pageSize * this.currentPage - this.pageSize, this.pageSize * this.currentPage)
+            return this.filteredData.slice(this.pageSize * this.currentPage - this.pageSize, this.pageSize * this.currentPage)
         }
     },
     methods:{
+        sortMethod({ prop, order }){
+            let setVal = null
+            if(order==='ascending'){
+                setVal =1
+            }
+            if(order==='descending'){
+                setVal =-1
+            }
+
+            if(setVal===null) this.filteredData = this.data
+            else this.filteredData = cloneDeep(this.data).sort((a,b)=>{
+                if(order==='ascending') return a[prop].toLowerCase().localeCompare(b[prop].toLowerCase())
+                else return (b[prop].toLowerCase().localeCompare(a[prop].toLowerCase()))
+            })
+            
+        },
         cancelRequest(){
             this.controller.abort()
             this.controller = new AbortController();
@@ -89,6 +107,7 @@ export default {
                 if(!valid) return
                 this.loading = true
                 this.data=null
+                this.filteredData =null
                 this.currentPage = 1
                 let payload = this.form.query.toLowerCase().split('select * from')[1].split(';')[0].trim()
                 try{
@@ -108,14 +127,7 @@ export default {
             data  = await data.text()
             data = csvToJson(data)
            this.data = data
-        },
-        load() {
-            if(this.data.length<50) return
-            this.loading =true
-            setTimeout(()=>{
-                this.data.push(...this.data.slice(0,10))
-                this.loading =false
-            },3000)
+           this.filteredData =data
         },
         setQuery(val) { 
             this.form.query = `SELECT * FROM ${val}`
