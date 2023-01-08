@@ -15,6 +15,7 @@ Vue js 3, Element Ui, Pinia
 - Saving the history of commands that user ran.
 - User can cancel the query.
 - User can run multiple queries in multiple Tabs .
+- User can sort all columns
 
 # Optimisation
  - Added Gzip Compression
