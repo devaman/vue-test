@@ -14,6 +14,7 @@ Vue js 3, Element Ui, Pinia
 - Added pagination to render large amount of data
 - Saving the history of commands that user ran.
 - User can cancel the query.
+- User can run multiple queries in multiple Tabs .
 
 # Optimisation
  - Added Gzip Compression
