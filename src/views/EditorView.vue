@@ -60,9 +60,7 @@ export default {
             }
         },
         setQuery(val) {
-            console.log(this.$refs[`runner-${this.editableTabsValue}`])
             this.$refs[`runner-${this.editableTabsValue}`][0].setQuery(val)
-            // elements.value[0].$slots.default()[0].setQuery(val)
         }
     }
 }

@@ -89,6 +89,7 @@ export default {
                 if(!valid) return
                 this.loading = true
                 this.data=null
+                this.currentPage = 1
                 let payload = this.form.query.toLowerCase().split('select * from')[1].split(';')[0].trim()
                 try{
                     await this.getData(payload)
